@@ -37,7 +37,6 @@ func TestPackageFunctions(t *testing.T) {
 msgid   ""
 msgstr  "Project-Id-Version: %s\n"
         "Report-Msgid-Bugs-To: %s\n"
-        
 # Initial comment
 # More Headers below
 "Language: en\n"

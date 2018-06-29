@@ -5,7 +5,7 @@
 
 package gotext
 
-// Translation is the struct for the Translations parsed via Po or Mo files and all coming parsers
+// Translation is the struct for the translations parsed via Po or Mo files and all coming parsers
 type Translation struct {
 	ID       string
 	PluralID string

@@ -451,3 +451,8 @@ func (po *Po) GetNC(str, plural string, n int, ctx string, vars ...interface{}) 
 	}
 	return Printf(plural, vars...)
 }
+
+
+func (po *Po) GetTranslation() map[string]*Translation{
+	return po.translations
+}
