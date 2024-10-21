@@ -9,7 +9,6 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/binary"
-	"io/ioutil"
 	"net/textproto"
 	"os"
 	"strconv"
@@ -53,33 +52,17 @@ Example:
 		// Get Translation
 		fmt.Println(po.Get("Translate this"))
 	}
-
 */
 type Mo struct {
-	// Headers storage
-	Headers textproto.MIMEHeader
-
-	// Language header
-	Language string
-
-	// Plural-Forms header
-	PluralForms string
-
-	// Parsed Plural-Forms header values
-	nplurals    int
-	plural      string
-	pluralforms plurals.Expression
-
-	// Storage
+	pluralforms  plurals.Expression
+	Headers      textproto.MIMEHeader
 	translations map[string]*Translation
 	contexts     map[string]map[string]*Translation
-
-	// Sync Mutex
+	Language     string
+	PluralForms  string
+	plural       string
+	nplurals     int
 	sync.RWMutex
-
-	// Parsing buffers
-	trBuffer  *Translation
-	ctxBuffer string
 }
 
 // NewMoTranslator creates a new Mo object with the Translator interface
@@ -101,7 +84,7 @@ func (mo *Mo) ParseFile(f string) {
 	}
 
 	// Parse file content
-	data, err := ioutil.ReadFile(f)
+	data, err := os.ReadFile(f)
 	if err != nil {
 		return
 	}
@@ -215,11 +198,8 @@ func (mo *Mo) Parse(buf []byte) {
 			// return fmt.Errorf("gettext: %v", err)
 		}
 
-		if len(msgIDData) == 0 {
-			mo.addTranslation(msgIDData, msgStrData)
-		} else {
-			mo.addTranslation(msgIDData, msgStrData)
-		}
+		mo.addTranslation(msgIDData, msgStrData)
+
 	}
 
 	// Unlock to parse headers
@@ -227,8 +207,6 @@ func (mo *Mo) Parse(buf []byte) {
 
 	// Parse headers
 	mo.parseHeaders()
-	return
-	// return nil
 }
 
 func (mo *Mo) addTranslation(msgid, msgstr []byte) {

@@ -3,22 +3,21 @@ Package gotext implements GNU gettext utilities.
 
 For quick/simple translations you can use the package level functions directly.
 
-    import (
-	    "fmt"
-	    "github.com/leonelquinteros/gotext"
-    )
+	    import (
+		    "fmt"
+		    "github.com/leonelquinteros/gotext"
+	    )
 
-    func main() {
-        // Configure package
-        gotext.Configure("/path/to/locales/root/dir", "en_UK", "domain-name")
+	    func main() {
+	        // Configure package
+	        gotext.Configure("/path/to/locales/root/dir", "en_UK", "domain-name")
 
-        // Translate text from default domain
-        fmt.Println(gotext.Get("My text on 'domain-name' domain"))
+	        // Translate text from default domain
+	        fmt.Println(gotext.Get("My text on 'domain-name' domain"))
 
-        // Translate text from a different domain without reconfigure
-        fmt.Println(gotext.GetD("domain2", "Another text on a different domain"))
-    }
-
+	        // Translate text from a different domain without reconfigure
+	        fmt.Println(gotext.GetD("domain2", "Another text on a different domain"))
+	    }
 */
 package gotext
 
@@ -28,19 +27,11 @@ import (
 
 // Global environment variables
 type config struct {
-	sync.RWMutex
-
-	// Default domain to look at when no domain is specified. Used by package level functions.
-	domain string
-
-	// Language set.
+	storage  *Locale
+	domain   string
 	language string
-
-	// Path to library directory where all locale directories and Translation files are.
-	library string
-
-	// Storage for package level methods
-	storage *Locale
+	library  string
+	sync.RWMutex
 }
 
 var globalConfig *config

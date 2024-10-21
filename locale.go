@@ -18,28 +18,27 @@ multiple languages at the same time by working with this object.
 
 Example:
 
-    import (
-	    "fmt"
-	    "github.com/leonelquinteros/gotext"
-    )
+	    import (
+		    "fmt"
+		    "github.com/leonelquinteros/gotext"
+	    )
 
-    func main() {
-        // Create Locale with library path and language code
-        l := gotext.NewLocale("/path/to/i18n/dir", "en_US")
+	    func main() {
+	        // Create Locale with library path and language code
+	        l := gotext.NewLocale("/path/to/i18n/dir", "en_US")
 
-        // Load domain '/path/to/i18n/dir/en_US/LC_MESSAGES/default.{po,mo}'
-        l.AddDomain("default")
+	        // Load domain '/path/to/i18n/dir/en_US/LC_MESSAGES/default.{po,mo}'
+	        l.AddDomain("default")
 
-        // Translate text from default domain
-        fmt.Println(l.Get("Translate this"))
+	        // Translate text from default domain
+	        fmt.Println(l.Get("Translate this"))
 
-        // Load different domain ('/path/to/i18n/dir/en_US/LC_MESSAGES/extras.{po,mo}')
-        l.AddDomain("extras")
+	        // Load different domain ('/path/to/i18n/dir/en_US/LC_MESSAGES/extras.{po,mo}')
+	        l.AddDomain("extras")
 
-        // Translate text from domain
-        fmt.Println(l.GetD("extras", "Translate this"))
-    }
-
+	        // Translate text from domain
+	        fmt.Println(l.GetD("extras", "Translate this"))
+	    }
 */
 type Locale struct {
 	// Path to locale files.

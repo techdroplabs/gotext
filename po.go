@@ -7,7 +7,6 @@ package gotext
 
 import (
 	"bufio"
-	"io/ioutil"
 	"net/textproto"
 	"os"
 	"strconv"
@@ -39,33 +38,19 @@ Example:
 		// Get Translation
 		fmt.Println(po.Get("Translate this"))
 	}
-
 */
 type Po struct {
-	// Headers storage
-	Headers textproto.MIMEHeader
-
-	// Language header
-	Language string
-
-	// Plural-Forms header
-	PluralForms string
-
-	// Parsed Plural-Forms header values
-	nplurals    int
-	plural      string
-	pluralforms plurals.Expression
-
-	// Storage
+	pluralforms  plurals.Expression
+	Headers      textproto.MIMEHeader
 	translations map[string]*Translation
 	contexts     map[string]map[string]*Translation
-
-	// Sync Mutex
+	trBuffer     *Translation
+	Language     string
+	PluralForms  string
+	plural       string
+	ctxBuffer    string
+	nplurals     int
 	sync.RWMutex
-
-	// Parsing buffers
-	trBuffer  *Translation
-	ctxBuffer string
 }
 
 type parseState int
@@ -97,7 +82,7 @@ func (po *Po) ParseFile(f string) {
 	}
 
 	// Parse file content
-	data, err := ioutil.ReadFile(f)
+	data, err := os.ReadFile(f)
 	if err != nil {
 		return
 	}
@@ -452,7 +437,6 @@ func (po *Po) GetNC(str, plural string, n int, ctx string, vars ...interface{}) 
 	return Printf(plural, vars...)
 }
 
-
-func (po *Po) GetTranslation() map[string]*Translation{
+func (po *Po) GetTranslation() map[string]*Translation {
 	return po.translations
 }

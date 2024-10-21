@@ -7,9 +7,9 @@ package gotext
 
 // Translation is the struct for the translations parsed via Po or Mo files and all coming parsers
 type Translation struct {
+	Trs      map[int]string
 	ID       string
 	PluralID string
-	Trs      map[int]string
 }
 
 // NewTranslation returns the Translation object and initialized it.

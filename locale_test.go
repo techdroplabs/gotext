@@ -270,8 +270,6 @@ msgstr "More Translation"
 		t.Errorf("Expected 'Plural index' but got '%s'", tr)
 	}
 
-
-
 	// Create Locale with full language code
 	l = NewLocale("/tmp", "golem")
 
@@ -297,8 +295,6 @@ msgstr "More Translation"
 	if tr != "This are tests" {
 		t.Errorf("Expected 'Plural index' but got '%s'", tr)
 	}
-
-
 
 	// Create Locale with full language code
 	l = NewLocale("fixtures/", "fr_FR")
@@ -352,7 +348,6 @@ msgstr "More Translation"
 		t.Errorf("Expected 'Plural index' but got '%s'", tr)
 	}
 
-
 	// Create Locale with full language code
 	l = NewLocale("fixtures/", "de_AT")
 
@@ -375,7 +370,7 @@ msgstr "More Translation"
 	}
 
 	// Test syntax error parsed translations
-	tr = l.GetNDC("mega", "This one has invalid syntax translations","plural",2,"ctx")
+	tr = l.GetNDC("mega", "This one has invalid syntax translations", "plural", 2, "ctx")
 	if tr != "plural" {
 		t.Errorf("Expected 'plural' but got '%s'", tr)
 	}

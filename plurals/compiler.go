@@ -4,7 +4,7 @@
  */
 
 /*
- Package plurals is the pluralform compiler to get the correct translation id of the plural string
+Package plurals is the pluralform compiler to get the correct translation id of the plural string
 */
 package plurals
 
@@ -252,8 +252,8 @@ func buildLte(val uint32, flipped bool) test {
 }
 
 type testTokenDef struct {
-	op    string
 	token testToken
+	op    string
 }
 
 var precedence = []testTokenDef{

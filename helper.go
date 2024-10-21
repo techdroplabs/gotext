@@ -45,7 +45,8 @@ func NPrintf(format string, params map[string]interface{}) {
 }
 
 // Sprintf support named format
-//      Sprintf("%(name)s is Type %(type)s", map[string]interface{}{"name": "Gotext", "type": "struct"})
+//
+//	Sprintf("%(name)s is Type %(type)s", map[string]interface{}{"name": "Gotext", "type": "struct"})
 func Sprintf(format string, params map[string]interface{}) string {
 	f, p := parseSprintf(format, params)
 	return fmt.Sprintf(f, p...)
